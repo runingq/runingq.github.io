@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portafolio - Runing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #1b1b1b;
+      color: #4CAF50;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .top-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+
+    .profile-pic, .icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #4CAF50;
+      transition: transform 0.6s ease;
+    }
+
+    .profile-pic:hover, .icon:hover {
+      transform: rotate(360deg);
+    }
+
+    a.icon-link {
+      display: inline-block;
+    }
+
+    h1, h2 {
+      color: #00ff99;
+    }
+
+    .section {
+      margin-bottom: 25px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 10px;
+      text-align: left;
+    }
+
+    .label {
+      color: #8aff8a;
+    }
+
+    .contact-section {
+      text-align: left;
+    }
+
+    .contact-section input, .contact-section textarea, .contact-section button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+
+    .contact-section textarea {
+      resize: none;
+      max-height: 150px;
+    }
+
+    .contact-section button {
+      background-color: #00ff99;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .contact-section button:hover {
+      background-color: #00cc7a;
+    }
+
+    .success {
+      color: #00ff99;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-section">
+    <a href="https://discord.gg" target="_blank" class="icon-link">
+      <img src="images/discord.png" alt="Discord" class="icon">
+    </a>
+    <img src="images/foto.png" alt="Foto de perfil" class="profile-pic">
+    <a href="https://instagram.com" target="_blank" class="icon-link">
+      <img src="images/ig.png" alt="Instagram" class="icon">
+    </a>
+  </div>
+
+  <h1>Runing</h1>
+  <p><span class="label">País:</span> Argentina</p>
+  <p><span class="label">Discord:</span> runingq</p>
+
+  <div class="section">
+    <h2>🎮 Perfil</h2>
+    <p>Apasionado por Minecraft con experiencia en administración de servidores. Experto en moderación, resolución de conflictos y gestión de comunidades.</p>
+  </div>
+
+  <div class="section">
+    <h2>💼 Experiencia</h2>
+    <ul>
+      <li><strong>Moderador – SkylexMC (2022–2024)</strong><br>Moderación, resolución de conflictos, reporte de bugs.</li>
+      <li><strong>Owner – OceanicMC (2023–2024)</strong><br>Configuración de plugins, gestión de staff, eventos.</li>
+      <li><strong>Owner – Skylex RP (2024 - 2025)</strong><br>Gestión total del servidor y eventos.</li>
+      <li><strong>Dueño – Sky RP (2025 - 2026)</strong><br>Gestión total del servidor y eventos.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🛠️ Habilidades</h2>
+    <ul>
+      <li>LuckPerms, Essentials, WorldEdit</li>
+      <li>Moderación y reportes</li>
+      <li>Comunicación escrita y ortografía</li>
+      <li>Discord, Tebex</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🌐 Idiomas</h2>
+    <p>Español (nativo)</p>
+  </div>
+
+  <div class="section contact-section">
+    <h2>📩 Contacto</h2>
+    <input type="email" id="email" placeholder="Tu email" required>
+    <input type="text" id="discord" placeholder="Tu usuario de Discord" required>
+    <textarea id="mensaje" maxlength="150" placeholder="Tu mensaje (máx 150 caracteres)"></textarea>
+    <button onclick="enviarMensaje()">Enviar mensaje</button>
+    <p id="respuesta" class=""></p>
+  </div>
+
+  <script>
+    function enviarMensaje() {
+      const email = document.getElementById("email").value.trim();
+      const discord = document.getElementById("discord").value.trim();
+      const mensaje = document.getElementById("mensaje").value.trim();
+      const respuesta = document.getElementById("respuesta");
+
+      if (!email || !discord || !mensaje) {
+        respuesta.textContent = "Por favor completá todos los campos.";
+        respuesta.className = "error";
+        return;
+      }
+
+      fetch("https://discord.com/api/webhooks/1396624413847457802/clm45fMFv-SxcI2CWMiBJdnaul3ru7FbmxbqlH14iRk5GoO8BhMkwkwFWYzNxMDVlcwM", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          embeds: [{
+            title: "📬 Nuevo contacto desde el portafolio",
+            fields: [
+              { name: "📧 Email", value: email, inline: false },
+              { name: "💬 Discord", value: discord, inline: false },
+              { name: "📝 Mensaje", value: mensaje, inline: false }
+            ],
+            color: 65280,
+            timestamp: new Date().toISOString()
+          }]
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          respuesta.textContent = "Mensaje enviado correctamente.";
+          respuesta.className = "success";
+          document.getElementById("email").value = "";
+          document.getElementById("discord").value = "";
+          document.getElementById("mensaje").value = "";
+        } else {
+          throw new Error("Error al enviar el mensaje.");
+        }
+      })
+      .catch(error => {
+        respuesta.textContent = "Hubo un error al enviar el mensaje.";
+        respuesta.className = "error";
+      });
+    }
+  </script>
+</body>
+</html>
